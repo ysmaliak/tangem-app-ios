@@ -40,4 +40,46 @@ struct BalanceFormattingOptions {
             roundingType: Self.defaultCryptoFormattingOptions.roundingType
         )
     }
+
+    static func defaultFiatFormattingOptions(for value: Decimal?) -> BalanceFormattingOptions {
+        guard let value else { return .defaultFiatFormattingOptions }
+        let maxFractionDigits = (value > 1 || value < -1) ? 2 : value.countLeadingZerosAfterDecimal() + 5
+        return BalanceFormattingOptions(
+            minFractionDigits: 2,
+            maxFractionDigits: maxFractionDigits,
+            formatEpsilonAsLowestRepresentableValue: true,
+            roundingType: .default(roundingMode: .plain, scale: 2)
+        )
+    }
+}
+
+private extension Decimal {
+    private static let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+
+    func countLeadingZerosAfterDecimal() -> Int {
+        guard let numberString = Self.numberFormatter.string(from: self as NSDecimalNumber) else { return 0 }
+
+        let decimalSeparator = Self.numberFormatter.decimalSeparator ?? "."
+        let parts = numberString.split(separator: Character(decimalSeparator))
+
+        guard parts.count == 2 else { return 0 }
+
+        let fractionalPart = parts[1]
+
+        var zeroCount = 0
+        for char in fractionalPart {
+            if char == "0" {
+                zeroCount += 1
+            } else {
+                break
+            }
+        }
+
+        return zeroCount
+    }
 }
