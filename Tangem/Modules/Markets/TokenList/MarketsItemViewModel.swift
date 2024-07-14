@@ -54,7 +54,7 @@ class MarketsItemViewModel: Identifiable, ObservableObject {
             self.marketCap = marketCapFormatter.formatDecimal(Decimal(marketCap))
         }
 
-        priceValue = priceFormatter.formatFiatBalance(data.priceValue)
+        priceValue = priceFormatter.formatFiatBalance(data.priceValue, formattingOptions: .defaultFiatFormattingOptions(for: data.priceValue))
         priceChangeState = priceChangeUtility.convertToPriceChangeState(changePercent: data.priceChangeStateValue)
 
         bindWithProviders(charts: chartsProvider, filter: filterProvider)

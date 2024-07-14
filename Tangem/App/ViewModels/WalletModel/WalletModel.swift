@@ -120,7 +120,7 @@ class WalletModel {
     }
 
     var fiatBalance: String {
-        formatter.formatFiatBalance(fiatValue)
+        formatter.formatFiatBalance(fiatValue, formattingOptions: .defaultFiatFormattingOptions(for: fiatValue))
     }
 
     var fiatValue: Decimal? {
@@ -140,7 +140,7 @@ class WalletModel {
             return BalanceFormatter.defaultEmptyBalanceString
         }
 
-        return formatter.formatFiatBalance(rate, formattingOptions: .defaultFiatFormattingOptions)
+        return formatter.formatFiatBalance(rate, formattingOptions: .defaultFiatFormattingOptions(for: rate))
     }
 
     /// Quotes can't be fetched for custom tokens.

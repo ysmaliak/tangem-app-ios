@@ -245,7 +245,7 @@ class VisaWalletModel {
 
 extension VisaWalletModel: VisaWalletMainHeaderSubtitleDataSource {
     var fiatBalance: String {
-        BalanceFormatter().formatFiatBalance(fiatValue)
+        BalanceFormatter().formatFiatBalance(fiatValue, formattingOptions: .defaultFiatFormattingOptions(for: fiatValue))
     }
 
     var blockchainName: String {

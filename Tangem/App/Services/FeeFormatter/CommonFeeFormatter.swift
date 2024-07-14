@@ -30,13 +30,7 @@ extension CommonFeeFormatter: FeeFormatter {
         let fiatFeeFormatted: String?
 
         if let currencyId, let fiatFee = balanceConverter.convertToFiat(fee, currencyId: currencyId) {
-            let formattingOptions = BalanceFormattingOptions(
-                minFractionDigits: BalanceFormattingOptions.defaultFiatFormattingOptions.minFractionDigits,
-                maxFractionDigits: BalanceFormattingOptions.defaultFiatFormattingOptions.maxFractionDigits,
-                formatEpsilonAsLowestRepresentableValue: true,
-                roundingType: BalanceFormattingOptions.defaultFiatFormattingOptions.roundingType
-            )
-            fiatFeeFormatted = balanceFormatter.formatFiatBalance(fiatFee, formattingOptions: formattingOptions)
+            fiatFeeFormatted = balanceFormatter.formatFiatBalance(fiatFee, formattingOptions: .defaultFiatFormattingOptions(for: fiatFee))
         } else {
             fiatFeeFormatted = nil
         }

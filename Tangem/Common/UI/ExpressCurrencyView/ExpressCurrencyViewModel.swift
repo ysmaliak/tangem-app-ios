@@ -89,7 +89,7 @@ final class ExpressCurrencyViewModel: ObservableObject, Identifiable {
         }
 
         if let fiatValue = BalanceConverter().convertToFiat(expectAmount, currencyId: currencyId) {
-            let formatted = BalanceFormatter().formatFiatBalance(fiatValue)
+            let formatted = BalanceFormatter().formatFiatBalance(fiatValue, formattingOptions: .defaultFiatFormattingOptions(for: fiatValue))
             update(fiatAmountState: .loaded(text: formatted))
             return
         }
@@ -99,7 +99,7 @@ final class ExpressCurrencyViewModel: ObservableObject, Identifiable {
         balanceConvertTask?.cancel()
         balanceConvertTask = runTask(in: self) { [currencyId] viewModel in
             let fiatValue = try await BalanceConverter().convertToFiat(expectAmount, currencyId: currencyId)
-            let formatted = BalanceFormatter().formatFiatBalance(fiatValue)
+            let formatted = BalanceFormatter().formatFiatBalance(fiatValue, formattingOptions: .defaultFiatFormattingOptions(for: fiatValue))
 
             try Task.checkCancellation()
 

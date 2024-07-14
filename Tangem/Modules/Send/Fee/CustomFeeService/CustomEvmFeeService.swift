@@ -68,7 +68,7 @@ class CustomEvmFeeService {
         }
 
         let fiat = BalanceConverter().convertToFiat(value, currencyId: currencyId)
-        return BalanceFormatter().formatFiatBalance(fiat)
+        return BalanceFormatter().formatFiatBalance(fiat, formattingOptions: .defaultFiatFormattingOptions(for: fiat))
     }
 
     private func didChangeCustomFee(_ feeValue: Decimal?) {

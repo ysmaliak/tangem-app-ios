@@ -179,7 +179,7 @@ private extension CommonSendNotificationManager {
 
             let formatter = BalanceFormatter()
             let cryptoAmountFormatted = formatter.formatCryptoBalance(feeCryptoValue, currencyCode: feeTokenItem.currencySymbol)
-            let fiatAmountFormatted = formatter.formatFiatBalance(feeFiatValue)
+            let fiatAmountFormatted = formatter.formatFiatBalance(feeFiatValue, formattingOptions: .defaultFiatFormattingOptions(for: feeFiatValue))
 
             show(notification: .feeWillBeSubtractFromSendingAmount(
                 cryptoAmountFormatted: cryptoAmountFormatted,

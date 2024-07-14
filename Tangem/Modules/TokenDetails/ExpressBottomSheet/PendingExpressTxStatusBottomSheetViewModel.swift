@@ -142,7 +142,7 @@ class PendingExpressTxStatusBottomSheetViewModel: ObservableObject, Identifiable
         }
 
         if let fiat = balanceConverter.convertToFiat(tokenTxInfo.amount, currencyId: currencyId) {
-            root[keyPath: stateKeyPath] = .loaded(text: balanceFormatter.formatFiatBalance(fiat))
+            root[keyPath: stateKeyPath] = .loaded(text: balanceFormatter.formatFiatBalance(fiat, formattingOptions: .defaultFiatFormattingOptions(for: fiat)))
             return
         }
 
@@ -150,7 +150,7 @@ class PendingExpressTxStatusBottomSheetViewModel: ObservableObject, Identifiable
             guard let root = root else { return }
 
             let fiatAmount = try await root.balanceConverter.convertToFiat(tokenTxInfo.amount, currencyId: currencyId)
-            let formattedFiat = root.balanceFormatter.formatFiatBalance(fiatAmount)
+            let formattedFiat = root.balanceFormatter.formatFiatBalance(fiatAmount, formattingOptions: .defaultFiatFormattingOptions(for: fiatAmount))
             await runOnMain {
                 root[keyPath: stateKeyPath] = .loaded(text: formattedFiat)
             }

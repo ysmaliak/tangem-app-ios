@@ -88,7 +88,7 @@ private extension StakingDetailsViewModel {
                 apr: inputData.rewardRate,
                 period: .days(days)
             )
-            return balanceFormatter.formatFiatBalance(profit)
+            return balanceFormatter.formatFiatBalance(profit, formattingOptions: .defaultFiatFormattingOptions(for: profit))
         }
 
         averageRewardingViewData = .init(

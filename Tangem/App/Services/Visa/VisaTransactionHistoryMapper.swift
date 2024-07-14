@@ -51,7 +51,7 @@ struct VisaTransactionHistoryMapper {
             hash: "\(record.id)",
             index: 0,
             interactionAddress: .custom(message: leadingSubtitle),
-            timeFormatted: balanceFormatter.formatFiatBalance(record.transactionAmount, numericCurrencyCode: record.transactionCurrencyCode),
+            timeFormatted: balanceFormatter.formatFiatBalance(record.transactionAmount, numericCurrencyCode: record.transactionCurrencyCode, formattingOptions: .defaultFiatFormattingOptions(for: record.transactionAmount)),
             amount: balanceFormatter.formatCryptoBalance(record.blockchainAmount, currencyCode: currencySymbol),
             isOutgoing: true,
             transactionType: .operation(name: record.merchantName ?? .unknown),
@@ -69,7 +69,7 @@ struct VisaTransactionHistoryMapper {
             status: prepareSnakeCaseString(transaction.status),
             blockchainAmount: balanceFormatter.formatCryptoBalance(transaction.blockchainAmount, currencyCode: currencySymbol),
             blockchainFee: balanceFormatter.formatCryptoBalance(transaction.blockchainFee, currencyCode: currencySymbol),
-            transactionAmount: balanceFormatter.formatFiatBalance(transaction.transactionAmount, numericCurrencyCode: transaction.transactionCurrencyCode),
+            transactionAmount: balanceFormatter.formatFiatBalance(transaction.transactionAmount, numericCurrencyCode: transaction.transactionCurrencyCode, formattingOptions: .defaultFiatFormattingOptions(for: transaction.transactionAmount)),
             currencyCode: ISO4217CodeConverter.shared.convertToStringCode(numericCode: transaction.transactionCurrencyCode) ?? "\(transaction.transactionCurrencyCode)"
         )
     }
@@ -84,7 +84,7 @@ struct VisaTransactionHistoryMapper {
             status: prepareSnakeCaseString(request.status),
             blockchainAmount: balanceFormatter.formatCryptoBalance(request.blockchainAmount, currencyCode: currencySymbol),
             blockchainFee: balanceFormatter.formatCryptoBalance(request.blockchainFee, currencyCode: currencySymbol),
-            transactionAmount: balanceFormatter.formatFiatBalance(request.transactionAmount, numericCurrencyCode: request.transactionCurrencyCode),
+            transactionAmount: balanceFormatter.formatFiatBalance(request.transactionAmount, numericCurrencyCode: request.transactionCurrencyCode, formattingOptions: .defaultFiatFormattingOptions(for: request.transactionAmount)),
             currencyCode: ISO4217CodeConverter.shared.convertToStringCode(numericCode: request.transactionCurrencyCode) ?? "\(request.transactionCurrencyCode)"
         )
 

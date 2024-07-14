@@ -183,7 +183,7 @@ class ExpressNotificationManager {
 
         let formatter = BalanceFormatter()
         let cryptoAmountFormatted = formatter.formatCryptoBalance(subtractFee, currencyCode: feeTokenItem.currencySymbol)
-        let fiatAmountFormatted = formatter.formatFiatBalance(feeFiatValue)
+        let fiatAmountFormatted = formatter.formatFiatBalance(feeFiatValue, formattingOptions: .defaultFiatFormattingOptions(for: feeFiatValue))
 
         let event = ExpressNotificationEvent.feeWillBeSubtractFromSendingAmount(
             cryptoAmountFormatted: cryptoAmountFormatted,

@@ -33,7 +33,7 @@ struct SendAmount {
         case .typical(let crypto, _):
             return balanceFormatter.formatCryptoBalance(crypto, currencyCode: currencySymbol, formattingOptions: formattingOptions)
         case .alternative(let fiat, _):
-            return fiat.map { balanceFormatter.formatFiatBalance($0) }
+            return fiat.map { balanceFormatter.formatFiatBalance($0, formattingOptions: .defaultFiatFormattingOptions(for: $0)) }
         }
     }
 
@@ -44,7 +44,7 @@ struct SendAmount {
     ) -> String? {
         switch type {
         case .typical(_, let fiat):
-            return fiat.map { balanceFormatter.formatFiatBalance($0) }
+            return fiat.map { balanceFormatter.formatFiatBalance($0, formattingOptions: .defaultFiatFormattingOptions(for: $0)) }
         case .alternative(_, let crypto):
             return balanceFormatter.formatCryptoBalance(crypto, currencyCode: currencySymbol, formattingOptions: formattingOptions)
         }
